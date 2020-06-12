@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>dns-tool-embed</title>
     <!--
     Copyright 2020 DigitalOcean
 
@@ -22,10 +22,12 @@
           integrity="sha256-a9JO7L1jGkja9va1xGMWEJspCfU/b9Vn5u/O5MdnKhw=" crossorigin="anonymous" />
 </head>
 <body>
+    <pre><code>&lt;div data-dns-tool-embed data-dns-domain="mattcowley.co.uk" data-dns-types="A,AAAA"&gt;&lt;/div&gt;</code></pre>
     <div data-dns-tool-embed data-dns-domain="mattcowley.co.uk" data-dns-types="A,AAAA"></div>
 
+    <pre><code>&lt;div data-dns-tool-embed data-dns-domain="mattcowley.co.uk" data-dns-types="CNAME,MX,NS"&gt;&lt;/div&gt;</code></pre>
     <div data-dns-tool-embed data-dns-domain="mattcowley.co.uk" data-dns-types="CNAME,MX,NS"></div>
 
-    <script src="../build/bundle.js"></script>
+    <script src="bundle.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Tiny embed version of the DO Community DNS Lookup tool",
   "source": "index.js",
-  "main": "bundle.js",
+  "main": "build/bundle.js",
   "scripts": {
     "build": "microbundle build",
     "watch": "microbundle watch"

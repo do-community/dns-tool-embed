@@ -1,3 +1,4 @@
+import records from './records';
 import fetch from './fetch';
 
 export default class DNSEmbed {
@@ -9,7 +10,8 @@ export default class DNSEmbed {
     constructor(element) {
         this.element = element;
         this.domain = element.getAttribute('data-dns-domain');
-        this.types = element.getAttribute('data-dns-types').split(',').map(type => type.trim().toUpperCase());
+        this.types = element.getAttribute('data-dns-types').split(',')
+            .map(type => type.trim().toUpperCase()).filter(type => records.includes(type));
         this.results = {};
     }
 
@@ -48,7 +50,7 @@ export default class DNSEmbed {
      * @returns {HTMLDivElement[]}
      */
     content() {
-        return Object.entries(this.results).sort((a, b) => a[0] > b[0] ? 1 : -1).map(([type, results]) => {
+        return Object.entries(this.results).sort(a => records.indexOf(a[0])).map(([type, results]) => {
             const div = document.createElement('div');
 
             // Heading

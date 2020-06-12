@@ -1,7 +1,8 @@
 {
   "name": "dns-tool-embed",
   "version": "1.0.0",
-  "description": "Tiny embed version of the DO Community DNS Lookup tool",
+  "description": "A portable, embeddable version of the DO Community DNS Lookup tool.",
+  "license": "Apache-2.0",
   "source": "src/index.js",
   "main": "build/bundle.js",
   "scripts": {
@@ -10,8 +11,18 @@
     "test": "eslint 'src/**/*.js'",
     "test:fix": "npm run test -- --fix"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/do-community/dns-tool-embed.git"
+  },
+  "keywords": [
+    "dns"
+  ],
   "author": "DigitalOcean",
-  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/do-community/dns-tool-embed/issues"
+  },
+  "homepage": "https://github.com/do-community/dns-tool-embed#readme",
   "devDependencies": {
     "eslint": "^7.2.0",
     "microbundle": "^0.12.0"

@@ -1,0 +1,19 @@
+{
+  "name": "dns-tool-embed",
+  "version": "1.0.0",
+  "description": "Tiny embed version of the DO Community DNS Lookup tool",
+  "source": "index.js",
+  "main": "bundle.js",
+  "scripts": {
+    "build": "microbundle build",
+    "watch": "microbundle watch"
+  },
+  "author": "DigitalOcean",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "microbundle": "^0.12.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
+}

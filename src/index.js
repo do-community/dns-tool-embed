@@ -25,10 +25,10 @@ const main = () => {
     // Detect all valid embeds to run
     const embedsElms = Array.from(document.querySelectorAll('[data-dns-tool-embed][data-dns-domain][data-dns-types]'));
 
-    // Convert to embed classes
+    // Convert to DNSEmbed instances
     const embeds = embedsElms.map(x => new DNSEmbed(x));
 
-    // Run fetch for all
+    // Run fetch for all to generate data
     Promise.all(embeds.map(x => x.fetch())).then(() => {});
 };
 

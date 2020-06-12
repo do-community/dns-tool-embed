@@ -6,11 +6,14 @@
   "main": "build/bundle.js",
   "scripts": {
     "build": "microbundle build",
-    "watch": "microbundle watch"
+    "watch": "microbundle watch",
+    "test": "eslint 'src/**/*.js'",
+    "test:fix": "npm run test -- --fix"
   },
   "author": "DigitalOcean",
   "license": "Apache-2.0",
   "devDependencies": {
+    "eslint": "^7.2.0",
     "microbundle": "^0.12.0"
   },
   "dependencies": {

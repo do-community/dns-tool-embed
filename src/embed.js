@@ -16,6 +16,8 @@ limitations under the License.
 
 import records from './records';
 import fetch from './fetch';
+import refreshIcon from './icons/refresh-cw';
+import externalLinkIcon from './icons/external-link';
 
 export default class DNSEmbed {
     /**
@@ -44,11 +46,14 @@ export default class DNSEmbed {
     /**
      * Fetches DNS responses for all required types for the given domain, and renders the results as HTML.
      *
+     * @param {Boolean} [cacheBypass=false] If the window-based cache for results should be bypassed.
      * @returns {Promise<void>}
      */
-    async fetch() {
+    async fetch(cacheBypass = false) {
         // Get all the data
-        await Promise.all(this.types.map(async type => { this.results[type] = await fetch(this.domain, type); }));
+        await Promise.all(this.types.map(async type => {
+            this.results[type] = await fetch(this.domain, type, cacheBypass);
+        }));
 
         // Container
         this.element.innerHTML = '';
@@ -86,8 +91,44 @@ export default class DNSEmbed {
             heading.style.margin = '10px 0 0';
             div.appendChild(heading);
 
+            // Refresh
+            const refresh = document.createElement('a');
+            refresh.style.display = 'inline-block';
+            refresh.style.border = 'none';
+            refresh.style.cursor = 'pointer';
+            refresh.style.margin = '0 0 0 5px';
+            refresh.innerHTML = refreshIcon;
+            refresh.firstElementChild.style.display = 'inline-block';
+            refresh.firstElementChild.style.margin = '0 0 -1px';
+            refresh.firstElementChild.style.verticalAlign = 'baseline';
+            refresh.firstElementChild.className = '';
+            refresh.firstElementChild.removeAttribute('width');
+            refresh.firstElementChild.setAttribute('height', '12px');
+            refresh.addEventListener('click', () => {
+                refresh.style.display = 'none';
+                this.fetch(true).then(() => {});
+            });
+            heading.appendChild(refresh);
+
+            // Date
+            const date = document.createElement('p');
+            date.textContent = `Last fetched ${results[1].toLocaleString()}`;
+            date.style.color = '#333';
+            date.style.display = 'none';
+            date.style.fontSize = '11px';
+            date.style.margin = '0';
+            div.appendChild(date);
+
+            // Show date when hovering on heading (or date)
+            let overHeading = false, overDate = false;
+            const leave = () => { if (!overHeading && !overDate) date.style.display = 'none'; };
+            heading.addEventListener('mouseenter', () => { overHeading = true; date.style.display = ''; });
+            date.addEventListener('mouseenter', () => { overDate = true; date.style.display = ''; });
+            heading.addEventListener('mouseleave', () => { overHeading = false; leave(); });
+            date.addEventListener('mouseleave', () => { overDate = false; leave(); });
+
             // Handle results
-            if (Array.isArray(results) && results.length) {
+            if (Array.isArray(results[0]) && results[0].length) {
                 // Create a container so the table doesn't overflow
                 const tableContainer = document.createElement('div');
                 tableContainer.style.overflowX = 'auto';
@@ -118,7 +159,7 @@ export default class DNSEmbed {
                 headingRow.appendChild(this.tableHeading('Data'));
 
                 // Data
-                results.forEach(result => {
+                results[0].forEach(result => {
                     const resultRow = document.createElement('tr');
                     tableBody.appendChild(resultRow);
                     resultRow.appendChild(this.tableCell(result.name));
@@ -131,7 +172,7 @@ export default class DNSEmbed {
 
             // Error
             const paragraph = document.createElement('p');
-            paragraph.textContent = results.length ? results.toString() : 'No records found';
+            paragraph.textContent = results[0].length ? results[0].toString() : 'No records found';
             paragraph.style.color = '#666';
             paragraph.style.fontSize = '13px';
             paragraph.style.margin = '5px 6px 0';
@@ -182,6 +223,7 @@ export default class DNSEmbed {
      * @returns {HTMLAnchorElement}
      */
     button() {
+        // Create the button
         const a = document.createElement('a');
         a.href = `https://www.digitalocean.com/community/tools/dns?domain=${encodeURIComponent(this.domain)}`;
         a.target = '_blank';
@@ -195,6 +237,18 @@ export default class DNSEmbed {
         a.style.margin = '15px 0 0';
         a.style.padding = '4px 12px 6px';
         a.style.textDecoration = 'none';
+
+        // Add the external link
+        const icon = document.createElement('div');
+        icon.innerHTML = externalLinkIcon;
+        icon.firstElementChild.className = '';
+        icon.firstElementChild.removeAttribute('width');
+        icon.firstElementChild.setAttribute('height', '12px');
+        icon.firstElementChild.style.display = 'inline-block';
+        icon.firstElementChild.style.margin = '0 0 -1px 5px';
+        icon.firstElementChild.style.verticalAlign = 'baseline';
+        a.appendChild(icon.firstElementChild);
+
         return a;
     }
 }

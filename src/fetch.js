@@ -30,8 +30,9 @@ const getFromCache = (domain, type) => {
 const saveInCache = (domain, type, result) => {
     window._DNSToolEmbedsCache = window._DNSToolEmbedsCache || {};
     window._DNSToolEmbedsCache[domain] = window._DNSToolEmbedsCache[domain] || {};
-    window._DNSToolEmbedsCache[domain][type] = result;
-    return result;
+    window._DNSToolEmbedsCache[domain][type] = [result, new Date()];
+
+    return window._DNSToolEmbedsCache[domain][type];
 };
 
 /**
@@ -41,7 +42,7 @@ const saveInCache = (domain, type, result) => {
  * @param {String} domain The domain to fetch the record type for.
  * @param {String} type The DNS record type to fetch results for.
  * @param {Boolean} [cacheBypass=false] If the window-based cache for results should be bypassed.
- * @returns {Promise<String|Array>}
+ * @returns {Promise<[String|Array, Date]>}
  */
 export default async (domain, type, cacheBypass = false) => {
     // If in the cache, use that result

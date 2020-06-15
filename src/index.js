@@ -16,20 +16,15 @@ limitations under the License.
 
 import DNSEmbed from './embed';
 
-const ready = func => {
-    if (document.readyState === 'loading') return document.addEventListener('DOMContentLoaded', func);
-    func();
-};
+window.doDNSToolEmbeds = scope => {
+    scope = scope || document;
 
-const main = () => {
     // Detect all valid embeds to run
-    const embedsElms = Array.from(document.querySelectorAll('[data-dns-tool-embed][data-dns-domain][data-dns-types]'));
+    const embedsElms = Array.from(scope.querySelectorAll('[data-dns-tool-embed][data-dns-domain][data-dns-types]'));
 
     // Convert to DNSEmbed instances
     const embeds = embedsElms.map(x => new DNSEmbed(x));
 
     // Run fetch for all to generate data
-    Promise.all(embeds.map(x => x.fetch())).then(() => {});
+    return Promise.all(embeds.map(x => x.fetch()));
 };
-
-ready(main);

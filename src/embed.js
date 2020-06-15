@@ -24,10 +24,20 @@ export default class DNSEmbed {
      * @param {HTMLDivElement} element The source div element from which to run the DNS Embed.
      */
     constructor(element) {
+        // Save the elm
         this.element = element;
+
+        // Save the data
         this.domain = element.getAttribute('data-dns-domain');
         this.types = element.getAttribute('data-dns-types').split(',')
             .map(type => type.trim().toUpperCase()).filter(type => records.includes(type));
+
+        // Remove the data
+        element.removeAttribute('data-dns-tool-embed');
+        element.removeAttribute('data-dns-domain');
+        element.removeAttribute('data-dns-types');
+
+        // Prep results store
         this.results = {};
     }
 

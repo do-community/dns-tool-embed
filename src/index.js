@@ -16,7 +16,9 @@ limitations under the License.
 
 import DNSEmbed from './embed';
 
-window.doDNSToolEmbeds = scope => {
+window._DNSToolEmbedsCache = {};
+
+window.DNSToolEmbeds = scope => {
     scope = scope || document;
 
     // Detect all valid embeds to run

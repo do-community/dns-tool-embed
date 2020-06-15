@@ -33,6 +33,7 @@ export default class DNSEmbed {
         this.domain = element.getAttribute('data-dns-domain');
         this.types = element.getAttribute('data-dns-types').split(',')
             .map(type => type.trim().toUpperCase()).filter(type => records.includes(type));
+        if (!this.types.length) this.types = ['A'];
 
         // Remove the data
         element.removeAttribute('data-dns-tool-embed');

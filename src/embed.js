@@ -54,7 +54,7 @@ export default class DNSEmbed {
         this.element.innerHTML = '';
         this.element.style.border = '1px solid #e5e5e5';
         this.element.style.borderRadius = '3px';
-        this.element.style.margin = '10px';
+        this.element.style.margin = '16px 0';
         this.element.style.padding = '10px';
 
         // Heading
@@ -88,17 +88,26 @@ export default class DNSEmbed {
 
             // Handle results
             if (Array.isArray(results) && results.length) {
+                // Create a container so the table doesn't overflow
+                const tableContainer = document.createElement('div');
+                tableContainer.style.overflowX = 'auto';
+                tableContainer.style.maxWidth = '100%';
+                div.appendChild(tableContainer);
+
                 // Create the table
                 const table = document.createElement('table');
+                table.style.background = 'none';
                 table.style.border = '0';
                 table.style.borderSpacing = '0';
                 table.style.margin = '5px 0';
                 table.style.tableLayout = 'unset';
-                div.appendChild(table);
+                tableContainer.appendChild(table);
 
                 const tableHeading = document.createElement('thead');
+                tableHeading.style.background = 'none';
                 table.appendChild(tableHeading);
                 const tableBody = document.createElement('tbody');
+                tableBody.style.background = 'none';
                 table.appendChild(tableBody);
 
                 // Create the table heading
@@ -178,6 +187,7 @@ export default class DNSEmbed {
         a.target = '_blank';
         a.textContent = `Perform a full DNS lookup for ${this.domain}`;
         a.style.background = '#0069ff';
+        a.style.border = 'none';
         a.style.borderRadius = '3px';
         a.style.color = '#fff';
         a.style.display = 'inline-block';

@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/do-community/dns-tool-embed#readme",
   "devDependencies": {
-    "eslint": "^7.8.1",
-    "microbundle": "^0.12.3"
+    "eslint": "^8.20.0",
+    "microbundle": "^0.15.0"
   },
   "dependencies": {}
 }

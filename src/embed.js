@@ -1,5 +1,5 @@
 /*
-Copyright 2020 DigitalOcean
+Copyright 2023 DigitalOcean
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import records from './records';
-import fetch from './fetch';
-import refreshIcon from './icons/refresh-cw';
-import externalLinkIcon from './icons/external-link';
+import records from './records.js';
+import fetch from './fetch.js';
+import refreshIcon from './icons/refresh-cw.js';
+import externalLinkIcon from './icons/external-link.js';
 
 export default class DNSEmbed {
     /**

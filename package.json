@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "A portable, embeddable version of the DO Community DNS Lookup tool.",
   "license": "Apache-2.0",
-  "source": "src/index.js",
-  "main": "build/bundle.js",
+  "main": "src/index.js",
+  "publishConfig": {
+    "source": "src/index.js",
+    "main": "build/bundle.js"
+  },
   "scripts": {
-    "build": "microbundle build",
-    "watch": "microbundle watch",
+    "build": "microbundle -f umd -o build/bundle.js --no-pkg-main",
+    "watch": "npm run build -- watch",
     "test": "eslint 'src/**/*.js'",
     "test:fix": "npm run test -- --fix"
   },

@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A portable, embeddable version of the DO Community DNS Lookup tool.",
   "license": "Apache-2.0",
+  "private": true,
+  "engines": {
+    "node": "20.9.0"
+  },
   "main": "src/index.js",
   "publishConfig": {
     "source": "src/index.js",
